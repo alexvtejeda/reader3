@@ -4,6 +4,7 @@ from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 # BookMetadata/ChapterContent/TOCEntry are load-bearing: book.pkl is pickled by
@@ -13,6 +14,7 @@ from reader3 import Book, BookMetadata, ChapterContent, TOCEntry  # noqa: F401
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Where are the book folders located?
 BOOKS_DIR = "."
