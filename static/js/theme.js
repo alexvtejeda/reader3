@@ -33,10 +33,18 @@
     updateButtons();
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function init() {
     document.querySelectorAll(".theme-toggle").forEach(function (btn) {
       btn.addEventListener("click", toggle);
     });
     updateButtons();
-  });
+  }
+
+  // Bind once the DOM is ready. Guard against an already-parsed DOM so the
+  // buttons still wire up if this script is ever loaded without `defer`.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
