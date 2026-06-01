@@ -260,6 +260,22 @@ def process_epub(epub_path: str, output_dir: str) -> Book:
                 elif filename in image_map:
                     img["src"] = image_map[filename]
 
+            # A2. Fix SVG <image> refs (used by many cover/title pages). These hold
+            # the path in xlink:href (or href), so the <img> loop above misses them.
+            for image in soup.find_all("image"):
+                attr = "xlink:href" if image.has_attr("xlink:href") else "href"
+                src = image.get(attr, "")
+                if not src:
+                    continue
+
+                src_decoded = unquote(src)
+                filename = os.path.basename(src_decoded)
+
+                if src_decoded in image_map:
+                    image[attr] = image_map[src_decoded]
+                elif filename in image_map:
+                    image[attr] = image_map[filename]
+
             # B. Clean HTML
             soup = clean_html_content(soup)
 
