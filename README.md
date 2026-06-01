@@ -58,17 +58,17 @@ If reader3 lives inside WSL2 but Claude Desktop runs on Windows, launch across t
   "mcpServers": {
     "reader3": {
       "command": "wsl.exe",
-      "args": ["-d", "ubuntu", "-u", "noob_master", "-e", "bash", "-lc",
-               "cd /home/noob_master/reader3 && exec uv run python mcp_server.py"]
+      "args": ["-d", "<distro>", "-u", "<user>", "-e", "bash", "-lc",
+               "cd /path/to/reader3 && exec uv run python mcp_server.py"]
     }
   }
 }
 ```
 
-Adjust `-d ubuntu` (find your exact distro name with `wsl -l -v` in PowerShell), `-u <user>`, and the path to match your setup. The `bash -lc` login shell is what puts `uv` on `PATH`. To sanity-check before restarting Claude Desktop, run this in PowerShell — it should print the repo path and a path to `uv`:
+Set `-d <distro>` (find your exact distro name with `wsl -l -v` in PowerShell), `-u <user>`, and the path to match your setup. The `bash -lc` login shell is what puts `uv` on `PATH`. To sanity-check before restarting Claude Desktop, run this in PowerShell — it should print the repo path and a path to `uv`:
 
 ```powershell
-wsl.exe -d ubuntu -u noob_master -e bash -lc "cd /home/noob_master/reader3 && pwd && which uv"
+wsl.exe -d <distro> -u <user> -e bash -lc "cd /path/to/reader3 && pwd && which uv"
 ```
 
 ## License
