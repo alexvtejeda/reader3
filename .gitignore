@@ -12,3 +12,6 @@ wheels/
 # Custom
 *_data/
 *.epub
+
+# Claude Code personal settings (keep private)
+.claude/settings.local.json

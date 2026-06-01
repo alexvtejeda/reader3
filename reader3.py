@@ -6,13 +6,12 @@ import os
 import pickle
 import shutil
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Any
 from datetime import datetime
 from urllib.parse import unquote
 
 import ebooklib
-from ebooklib import epub
 from bs4 import BeautifulSoup, Comment
+from ebooklib import epub
 
 # --- Data structures ---
 
@@ -37,7 +36,7 @@ class TOCEntry:
     href: str         # original href (e.g., 'part01.html#chapter1')
     file_href: str    # just the filename (e.g., 'part01.html')
     anchor: str       # just the anchor (e.g., 'chapter1'), empty if none
-    children: List['TOCEntry'] = field(default_factory=list)
+    children: list['TOCEntry'] = field(default_factory=list)
 
 
 @dataclass
@@ -45,21 +44,21 @@ class BookMetadata:
     """Metadata"""
     title: str
     language: str
-    authors: List[str] = field(default_factory=list)
-    description: Optional[str] = None
-    publisher: Optional[str] = None
-    date: Optional[str] = None
-    identifiers: List[str] = field(default_factory=list)
-    subjects: List[str] = field(default_factory=list)
+    authors: list[str] = field(default_factory=list)
+    description: str | None = None
+    publisher: str | None = None
+    date: str | None = None
+    identifiers: list[str] = field(default_factory=list)
+    subjects: list[str] = field(default_factory=list)
 
 
 @dataclass
 class Book:
     """The Master Object to be pickled."""
     metadata: BookMetadata
-    spine: List[ChapterContent]  # The actual content (linear files)
-    toc: List[TOCEntry]          # The navigation tree
-    images: Dict[str, str]       # Map: original_path -> local_path
+    spine: list[ChapterContent]  # The actual content (linear files)
+    toc: list[TOCEntry]          # The navigation tree
+    images: dict[str, str]       # Map: original_path -> local_path
 
     # Meta info
     source_file: str
@@ -93,7 +92,7 @@ def extract_plain_text(soup: BeautifulSoup) -> str:
     return ' '.join(text.split())
 
 
-def parse_toc_recursive(toc_list, depth=0) -> List[TOCEntry]:
+def parse_toc_recursive(toc_list, depth=0) -> list[TOCEntry]:
     """
     Recursively parses the TOC structure from ebooklib.
     """
@@ -132,7 +131,7 @@ def parse_toc_recursive(toc_list, depth=0) -> List[TOCEntry]:
     return result
 
 
-def get_fallback_toc(book_obj) -> List[TOCEntry]:
+def get_fallback_toc(book_obj) -> list[TOCEntry]:
     """
     If TOC is missing, build a flat one from the Spine.
     """
