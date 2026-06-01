@@ -54,6 +54,26 @@ def _load_book(book_id: str) -> Book | None:
         return None
 
 
+def _chapter_list(book: Book) -> list[dict]:
+    """Flat, spine-ordered chapter list with real TOC titles joined by filename.
+
+    Mirrors reader.html's JS: TOC titles are keyed by file_href, spine items by
+    href. The first TOC entry pointing at a file wins; spine items with no TOC
+    match keep their own fallback title (e.g. "Section 3").
+    """
+    title_by_file: dict[str, str] = {}
+
+    def walk(entries: list[TOCEntry]) -> None:
+        for e in entries:
+            if e.file_href and e.file_href not in title_by_file:
+                title_by_file[e.file_href] = e.title
+            walk(e.children)
+
+    walk(book.toc)
+
+    return [{"index": ch.order, "title": title_by_file.get(ch.href, ch.title)} for ch in book.spine]
+
+
 @mcp.tool()
 def list_books() -> list[dict]:
     """List processed books available to read.
@@ -75,6 +95,23 @@ def list_books() -> list[dict]:
                     }
                 )
     return books
+
+
+@mcp.tool()
+def get_toc(book_id: str) -> dict:
+    """Get a book's flat, numbered chapter list for browsing.
+
+    Returns title, author, and chapters: a list of {index, title}. Pass an
+    index to get_chapter to read that chapter.
+    """
+    book = _load_book(book_id)
+    if not book:
+        return {"error": f"No book with id '{book_id}'. Call list_books."}
+    return {
+        "title": book.metadata.title,
+        "author": ", ".join(book.metadata.authors),
+        "chapters": _chapter_list(book),
+    }
 
 
 if __name__ == "__main__":
