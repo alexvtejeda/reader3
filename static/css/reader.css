@@ -223,3 +223,19 @@ body.sidebar-closed #sidebar {
     display: none;
   }
 }
+
+/* Mobile: tighten the reading column and let the nav footer wrap. */
+@media (max-width: 768px) {
+  .content-container {
+    padding: 24px 18px;
+    font-size: clamp(1rem, 0.9rem + 0.6vw, 1.15em);
+  }
+  .book-content p {
+    text-align: left; /* justified text makes ugly rivers in a narrow column */
+  }
+  .chapter-nav {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+}
