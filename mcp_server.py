@@ -54,5 +54,28 @@ def _load_book(book_id: str) -> Book | None:
         return None
 
 
+@mcp.tool()
+def list_books() -> list[dict]:
+    """List processed books available to read.
+
+    Returns one entry per book with: id (use it for get_toc/get_chapter),
+    title, author, num_chapters.
+    """
+    books = []
+    for item in sorted(os.listdir(BOOKS_DIR)):
+        if item.endswith("_data") and os.path.isdir(os.path.join(BOOKS_DIR, item)):
+            book = _load_book(item)
+            if book:
+                books.append(
+                    {
+                        "id": item,
+                        "title": book.metadata.title,
+                        "author": ", ".join(book.metadata.authors),
+                        "num_chapters": len(book.spine),
+                    }
+                )
+    return books
+
+
 if __name__ == "__main__":
     mcp.run()  # stdio transport by default
