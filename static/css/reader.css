@@ -34,6 +34,7 @@ body {
   border-bottom: 1px solid var(--border-mid);
 }
 .nav-home {
+  /* A flex child of .sidebar-top, which supplies the bottom gap; no display/margin needed here. */
   color: var(--accent);
   text-decoration: none;
   font-family: -apple-system, sans-serif;
