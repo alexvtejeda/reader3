@@ -6,26 +6,13 @@
     <title>My Library</title>
     <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/library.css">
-    <script>
-      // Set theme before paint to avoid a flash of the wrong colors.
-      (function () {
-        var saved = null;
-        try { saved = localStorage.getItem("theme"); } catch (e) {}
-        var theme =
-          saved ||
-          (window.matchMedia &&
-          matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light");
-        document.documentElement.setAttribute("data-theme", theme);
-      })();
-    </script>
+    {% include "_theme_init.html" %}
 </head>
 <body>
     <div class="container">
         <div class="library-header">
             <h1>Library</h1>
-            <button class="theme-toggle" type="button" aria-label="Toggle theme">&#9790;</button>
+            <button class="theme-toggle" type="button" aria-label="Toggle theme"></button>
         </div>
 
         {% if not books %}
@@ -45,6 +32,6 @@
             {% endfor %}
         </div>
     </div>
-    <script src="/static/js/theme.js" defer></script>
+    <script src="/static/js/theme.js"></script>
 </body>
 </html>

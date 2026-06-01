@@ -6,20 +6,7 @@
     <title>{{ book.metadata.title }}</title>
     <link rel="stylesheet" href="/static/css/base.css">
     <link rel="stylesheet" href="/static/css/reader.css">
-    <script>
-      // Set theme before paint to avoid a flash of the wrong colors.
-      (function () {
-        var saved = null;
-        try { saved = localStorage.getItem("theme"); } catch (e) {}
-        var theme =
-          saved ||
-          (window.matchMedia &&
-          matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light");
-        document.documentElement.setAttribute("data-theme", theme);
-      })();
-    </script>
+    {% include "_theme_init.html" %}
 </head>
 <body>
 
@@ -27,7 +14,7 @@
     <div id="sidebar">
         <div class="sidebar-top">
             <a href="/" class="nav-home">← Back to Library</a>
-            <button class="theme-toggle" type="button" aria-label="Toggle theme">&#9790;</button>
+            <button class="theme-toggle" type="button" aria-label="Toggle theme"></button>
         </div>
         <div class="nav-header">{{ book.metadata.title }}</div>
 
@@ -136,6 +123,6 @@
             }
         }
     </script>
-    <script src="/static/js/theme.js" defer></script>
+    <script src="/static/js/theme.js"></script>
 </body>
 </html>
