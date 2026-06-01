@@ -114,5 +114,27 @@ def get_toc(book_id: str) -> dict:
     }
 
 
+@mcp.tool()
+def get_chapter(book_id: str, index: int) -> dict:
+    """Get the plain text of one chapter by its index (from get_toc).
+
+    Returns index, title, text (plain text), and num_chapters.
+    """
+    book = _load_book(book_id)
+    if not book:
+        return {"error": f"No book with id '{book_id}'. Call list_books."}
+    n = len(book.spine)
+    if index < 0 or index >= n:
+        return {"error": f"Chapter {index} out of range; book has {n} chapters (0-{n - 1})."}
+    chapter = book.spine[index]
+    titles = _chapter_list(book)
+    return {
+        "index": index,
+        "title": titles[index]["title"],
+        "text": chapter.text,
+        "num_chapters": n,
+    }
+
+
 if __name__ == "__main__":
     mcp.run()  # stdio transport by default
