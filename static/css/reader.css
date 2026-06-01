@@ -192,3 +192,34 @@ body.sidebar-closed #sidebar-toggle .icon-close {
 body.sidebar-closed #sidebar {
   display: none;
 }
+
+/* Mobile: sidebar becomes a sliding overlay instead of an in-flow column. */
+@media (max-width: 768px) {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 90;
+    transform: translateX(0);
+    transition: transform 0.25s ease;
+    box-shadow: 2px 0 8px var(--card-shadow);
+  }
+  /* Override the desktop display:none so the slide-out stays animatable. */
+  body.sidebar-closed #sidebar {
+    display: block;
+    transform: translateX(-100%);
+  }
+
+  /* Backdrop shows only while the sidebar is open. */
+  #sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  body.sidebar-closed #sidebar-backdrop {
+    display: none;
+  }
+}
