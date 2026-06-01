@@ -24,6 +24,8 @@ body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  /* Leave room for the fixed #sidebar-toggle button (40px wide + gap). */
+  padding-left: 44px;
 }
 .nav-header {
   font-family: -apple-system, sans-serif;
@@ -136,4 +138,57 @@ a.toc-link.active {
   pointer-events: none;
   border-color: var(--disabled);
   color: var(--disabled);
+}
+
+/* Sidebar toggle button (fixed, top-left, above the sidebar so it stays
+   clickable when the mobile overlay is open). Mirrors .theme-toggle styling. */
+#sidebar-toggle {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: var(--sidebar-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+#sidebar-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+#sidebar-toggle svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Icon swap: x while open, menu while closed. */
+#sidebar-toggle .icon-menu {
+  display: none;
+}
+#sidebar-toggle .icon-close {
+  display: block;
+}
+body.sidebar-closed #sidebar-toggle .icon-menu {
+  display: block;
+}
+body.sidebar-closed #sidebar-toggle .icon-close {
+  display: none;
+}
+
+/* Backdrop is desktop-hidden by default; the mobile media query enables it. */
+#sidebar-backdrop {
+  display: none;
+}
+
+/* Desktop collapse: drop the sidebar from flow so content re-centers. */
+body.sidebar-closed #sidebar {
+  display: none;
 }

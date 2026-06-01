@@ -10,6 +10,30 @@
 </head>
 <body>
 
+    <script>
+      // Start collapsed on narrow screens; no flash of the wrong layout.
+      // document.body exists here because this is the first child of <body>.
+      if (window.innerWidth < 768) document.body.classList.add("sidebar-closed");
+    </script>
+
+    <!-- SIDEBAR TOGGLE (fixed, top-left, always visible) -->
+    <button id="sidebar-toggle" type="button" aria-label="Toggle sidebar">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6"  y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- BACKDROP (shown only behind the mobile sidebar overlay) -->
+    <div id="sidebar-backdrop"></div>
+
     <!-- SIDEBAR -->
     <div id="sidebar">
         <div class="sidebar-top">
@@ -124,5 +148,6 @@
         }
     </script>
     <script src="/static/js/theme.js"></script>
+    <script src="/static/js/sidebar.js"></script>
 </body>
 </html>
