@@ -71,7 +71,12 @@ def _chapter_list(book: Book) -> list[dict]:
 
     walk(book.toc)
 
-    return [{"index": ch.order, "title": title_by_file.get(ch.href, ch.title)} for ch in book.spine]
+    # Index by list position, not ch.order: get_chapter does book.spine[index],
+    # and ch.order can have gaps when reader3.py skipped non-document spine items.
+    return [
+        {"index": i, "title": title_by_file.get(ch.href, ch.title)}
+        for i, ch in enumerate(book.spine)
+    ]
 
 
 @mcp.tool()
