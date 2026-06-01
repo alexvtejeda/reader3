@@ -121,5 +121,5 @@ async def serve_image(book_id: str, image_name: str):
 if __name__ == "__main__":
     import uvicorn
 
-    print("Starting server at http://127.0.0.1:8123")
-    uvicorn.run(app, host="127.0.0.1", port=8123)
+    print("Starting server at http://100.67.35.63:8123")
+    uvicorn.run(app, host="100.67.35.63", port=8123)
