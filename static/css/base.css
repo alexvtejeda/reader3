@@ -16,7 +16,7 @@
   --on-accent: #ffffff;
   --toc-link: #495057;
   --toc-link-hover: #000000;
-  --toc-active: #d63384;
+  --toc-active: #5db5bb;
   --card-bg: #ffffff;
   --card-shadow: rgba(0, 0, 0, 0.1);
   --book-title: #2c3e50;
@@ -36,11 +36,12 @@
   --border-mid: #333333;
   --border-soft: #2a2a2a;
   --accent: #5dade2;
-  --accent-hover: #85c1e9;
+  --accent-hover: #b7d8ee;
+  --accent-visited: #697a86;
   --on-accent: #0d0d0d;
   --toc-link: #c0c0c0;
   --toc-link-hover: #ffffff;
-  --toc-active: #f06595;
+  --toc-active: #1da4b0;
   --card-bg: #1e1e1e;
   --card-shadow: rgba(0, 0, 0, 0.5);
   --book-title: #d0d8e0;

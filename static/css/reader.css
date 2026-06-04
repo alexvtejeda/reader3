@@ -107,6 +107,23 @@ a.toc-link.active {
   text-align: justify;
 }
 
+[data-type="xref"], 
+.book-content a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+[data-type="xref"]:hover, 
+.book-content a:hover {
+  color: var(--accent-hover);
+  text-decoration: none;
+}
+
+[data-type="xref"]:visited, 
+.book-content a:visited {
+  color: var(--accent-visited);
+}
+
 /* Navigation Footer */
 .chapter-nav {
   display: flex;
